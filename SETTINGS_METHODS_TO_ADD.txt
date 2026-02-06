@@ -1,0 +1,93 @@
+// Add these methods to _SettingsScreenState class after _showColorPickerDialog() and before @override Widget build()
+
+  String _getModelLabel() {
+    final model = ref.read(settingsRepositoryProvider).getSelectedAiModel();
+    if (model == null || model == 'auto') return 'Auto (Recommended)';
+    return model;
+  }
+  
+  String _getVoiceLabel() {
+    final voice = ref.read(settingsRepositoryProvider).getTtsVoice();
+    final parts = voice.split('-');
+    return parts.length > 2 ? parts.sublist(2).join(' ') : voice;
+  }
+  
+  void _showModelSelectionDialog() {
+    final currentModel = ref.read(settingsRepositoryProvider).getSelectedAiModel() ?? 'auto';
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select AI Model'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<String>(
+                title: const Text('Auto (Recommended)'),
+                subtitle: const Text('Switches models when rate limits hit'),
+                value: 'auto',
+                groupValue: currentModel,
+                dense: true,
+                onChanged: (value) {
+                  ref.read(settingsRepositoryProvider).setSelectedAiModel(value!);
+                  Navigator.pop(context);
+                  setState(() {});
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Model set to Auto')));
+                },
+              ),
+              const Divider(),
+              ...['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-3-flash', 'gemini-2.5-flash-tts'].map((model) => RadioListTile<String>(
+                title: Text(model, style: const TextStyle(fontSize: 13)),
+                value: model,
+                groupValue: currentModel,
+                dense: true,
+                onChanged: (value) {
+                  ref.read(settingsRepositoryProvider).setSelectedAiModel(value!);
+                  Navigator.pop(context);
+                  setState(() {});
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Model: $value')));
+                },
+              )),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  
+  void _showVoiceSelectionDialog() {
+    final currentVoice = ref.read(settingsRepositoryProvider).getTtsVoice();
+    final voices = {
+      'en-us-x-tpf-local': 'US Female (Natural)',
+      'en-us-x-tpm-local': 'US Male (Natural)',
+      'en-us-x-iob-local': 'US Female 2 (Natural)',
+      'en-us-x-iom-local': 'US Male 2 (Natural)',
+      'en-gb-x-gba-local': 'British Female',
+      'en-gb-x-gbb-local': 'British Male',
+      'en-in-x-ahp-local': 'Indian Female',
+      'en-in-x-ene-local': 'Indian Male',
+    };
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Voice'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: voices.entries.map((entry) => RadioListTile<String>(
+              title: Text(entry.value),
+              value: entry.key,
+              groupValue: currentVoice,
+              dense: true,
+              onChanged: (value) {
+                ref.read(settingsRepositoryProvider).setTtsVoice(value!);
+                Navigator.pop(context);
+                setState(() {});
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Voice: ${entry.value}')));
+              },
+            )).toList(),
+          ),
+        ),
+      ),
+    );
+  }
