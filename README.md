@@ -55,3 +55,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 - **Amrita Prajapati** ([@Amrita-io](https://github.com/Amrita-io)) — Lead Developer & Architecture
 - **Kavan Raval** ([@Carbon-7](https://github.com/Carbon-7)) — Core Developer
+ 
