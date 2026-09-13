@@ -50,3 +50,8 @@ Vellum is a modern, AI-powered e-book reader and audiobook player built with Flu
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Contributors
+
+- **Amrita Prajapati** ([@Amrita-io](https://github.com/Amrita-io)) — Lead Developer & Architecture
+- **Kavan Raval** ([@Carbon-7](https://github.com/Carbon-7)) — Core Developer
