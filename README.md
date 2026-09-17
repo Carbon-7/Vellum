@@ -299,7 +299,17 @@ The TTS engine transforms text content into audio playback:
 - Synchronization between audio playback position and visual page layout.
 
 ---
+## Contributors
 
+Built as a collaborative Flutter project with contributions across UI/UX design, feature ideation, frontend architecture, and codebase refinements.
+
+| Contributor | Roles & Responsibilities |
+| :--- | :--- |
+| **Amrita** (`@Amrita-io`)  | UI/UX App Design, Feature Ideation, Code Refinements, Quality Assurance & Testing |
+| **Kavan**  | Core Flutter/Dart Development, Clean Architecture Implementation, Isar DB Persistence, Gemini AI & Kavita Integration |
+
+Special thanks to her for designing the visual layout and refining the user experience.
+---
 ## License
 
 This project is maintained by the original authors and contributors. Refer to the repository settings for licensing details.
